@@ -25,6 +25,9 @@ action :add do
   Chef::Log.info "Adding #{new_resource.command_name} to #{node['nagios']['nrpe']['conf_dir']}/nrpe.d/"
   command = new_resource.command || "#{node['nagios']['plugin_dir']}/#{new_resource.command_name}"
   file_contents = "command[#{new_resource.command_name}]=#{command}"
+  file_contents += " -C #{new_resource.command_match}" unless new_resource.command_match.nil?
+  file_contents += " -s #{new_resource.status_flags}" unless new_resource.status_flags.nil?
+  file_contents += " -a #{new_resource.argument_array}" unless new_resource.argument_array.nil?
   file_contents += " -w #{new_resource.warning_condition}" unless new_resource.warning_condition.nil?
   file_contents += " -c #{new_resource.critical_condition}" unless new_resource.critical_condition.nil?
   file_contents += " #{new_resource.parameters}" unless new_resource.parameters.nil?

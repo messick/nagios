@@ -21,6 +21,9 @@ actions :add, :remove
 
 state_attrs :command,
             :command_name,
+            :command_match,
+            :status_flags,
+            :argument_array,
             :critical_condition,
             :parameters,
             :warning_condition
@@ -28,6 +31,9 @@ state_attrs :command,
 # Name of the nrpe check, used for the filename and the command name
 attribute :command_name, :kind_of => String, :name_attribute => true
 
+attribute :command_match, :kind_of => String, :default => nil
+attribute :status_flags, :kind_of => String, :default => nil
+attribute :argument_array, :kind_of => String, :default => nil
 attribute :warning_condition, :kind_of => String, :default => nil
 attribute :critical_condition, :kind_of => String, :default => nil
 attribute :command, :kind_of => String
